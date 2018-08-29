@@ -22,6 +22,7 @@ app.use(function(req, res, next) {
   res.set({
     'Cache-Control': 'no-store'
   })
+  next()
 })
 app.use(apiRouter);
 app.use('/users', usersRouter);
