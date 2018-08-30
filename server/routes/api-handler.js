@@ -10,14 +10,16 @@ module.exports = function (req, res, next) {
     if (result.length) {
       let json;
       try {
-        json = result[0].json.replace(/\u21b5\s*/g, '').replace(/('|")?(\w+)('|")?/g, '"$2"')
+        json = result[0].json
+          .replace(/\u21b5\s*/g, '')
+          .replace(/('|")?\s*([^'"{}:,\s]+)\s*('|")?/g, '"$2"')
         json = JSON.parse(json)
       } catch (err) {
         json = result[0].json
       }
       res.send(json)
     } else {
-      res.send({code: 404, msg: '未设置该路径'})
+      next()
     }
   })
 }
