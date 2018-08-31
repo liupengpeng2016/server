@@ -25,7 +25,7 @@ function registerHandler(req, res, next) {
     } else {
       const tooken = Math.random().toString(36).slice(2);
       operateMysql('insert into user set ?', {name, password, tooken}, function (err, result) {
-        res.cookie('tooken', tooken, {maxAge: 9000000})
+        res.cookie('tooken', tooken, {maxAge: 10000000000})
         res.status(200).send({code: 200, data: {user: {name}}, msg: ''})
       })
     }
@@ -41,7 +41,7 @@ function loginHandler (req, res, next) {
       if (result.length) {
         const newtooken = Math.random().toString(36).slice(2);
         operateMysql('update user set tooken=? where name=?', [newtooken, name], function (err, result2) {
-          res.cookie('tooken', newtooken, {maxAge: 99999999})
+          res.cookie('tooken', newtooken, {maxAge: 10000000000})
           res.send({code: 200, data: result[0], msg: ''})
         })
       } else {

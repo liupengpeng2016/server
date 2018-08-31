@@ -11,8 +11,9 @@ module.exports = function (req, res, next) {
       let json;
       try {
         json = result[0].json
-          .replace(/\u21b5\s*/g, '')
-          .replace(/('|")?\s*([^'"{}:,\s]+)\s*('|")?/g, '"$2"')
+          .replace(/\s*\u21b5\s*/g, '')
+          .replace(/\s*([:,{}])\s*/g, '$1')
+          .replace(/('|")?([^'"{}:,]+)('|")?/g, '"$2"')
         json = JSON.parse(json)
       } catch (err) {
         json = result[0].json
